@@ -40,7 +40,7 @@ public class TestYN {
 				ssh = conn.openSession();
 				ssh.execCommand("cd /home;yum install gcc gcc-c++ kernel-devel;");
 				
-//				ssh.getStdin().write("y\n".getBytes());
+				ssh.getStdin().write("y\n".getBytes());
 				
 				// 获取Terminal屏幕上的输出并打印出来
 				InputStream is = new StreamGobbler(ssh.getStdout());
