@@ -13,7 +13,7 @@ public class TestCtrCommondTest {
   
     public static void main(String[] args) {  
           
-        String hostname = "192.168.62.111";  
+        String hostname = "192.168.62.164";  
         String username = "root";  
         String password = "root123";  
         //指明连接主机的IP地址  
@@ -30,9 +30,12 @@ public class TestCtrCommondTest {
                 System.out.println("已经连接OK");  
                 ssh = conn.openSession();  
                 //使用多个命令用分号隔开  
-//              ssh.execCommand("pwd;cd /tmp;mkdir hb;ls;ps -ef|grep weblogic");  
-//              ssh.execCommand("cd /app/weblogic/Oracle/Middleware/user_projects/domains/base_domain;./startWebLogic.sh &");  
-                ssh.execCommand("cd /home/; mkdir testCommond;cd testCommond;touch a.text;");
+//                ssh.execCommand(" ls;");
+//                ssh.execCommand("cd /home/; wget http://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.6/zabbix-2.2.6.tar.gz;ls;tar -zxvf zabbix-2.2.6.tar.gz;");
+//                ssh.execCommand("rpm -ivh http://repo.zabbix.com/zabbix/2.4/rhel/6/x86_64/zabbix-release-2.4-1.el6.noarch.rpm");
+                ssh.execCommand("yum install zabbix-agent;y;y;server zabbix-agent start;chkconfig zabbix-agent on;");
+//                ssh.execCommand("cd /home/;java -version;");
+                
                 //只允许使用一行命令，即ssh对象只能使用一次execCommand这个方法，多次使用则会出现异常  
 //              ssh.execCommand("mkdir hb");  
                 //将屏幕上的文字全部打印出来  
@@ -41,12 +44,13 @@ public class TestCtrCommondTest {
                 while(true){  
                     String line = brs.readLine();  
                     if(line==null){  
-                        break;  
+                        break;
                     }  
                     System.out.println(line);  
                 }  
                   
             }  
+            System.out.println("ExitCode: "+ssh.getExitStatus());
             //连接的Session和Connection对象都需要关闭  
             ssh.close();  
             conn.close();  
